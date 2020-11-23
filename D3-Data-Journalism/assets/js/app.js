@@ -22,9 +22,9 @@ var margin = {
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
   
   // Import Data
-//   d3.csv("data.csv").then(function(data) 
-d3.csv("data.csv").then(function(stateData){
-  stateData.forEach(function(data) {
+
+  d3.csv("assets/js/data.csv").then(function(stateData){
+    stateData.forEach(function(data) {
     data.healthcare = +data.healthcare;
     data.poverty = +data.poverty;
   });
@@ -53,5 +53,14 @@ d3.csv("data.csv").then(function(stateData){
     .attr("cx", d => xLinearScale(d.healthcare))
     .attr("cy", d => yLinearScale(d.poverty))
     .attr("r", "15")
-    
+    .attr("fill", "pale-blue")
+
+    var textGroup = chartGroup.selectAll("circle")
+    .data(stateData)
+    .enter()
+    .append("text")
+    .attr("font-size", "8px")
+    .text(function(data){return data.abbr})
+
+      
 })
